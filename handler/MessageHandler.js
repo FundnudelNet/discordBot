@@ -1,10 +1,19 @@
 const Casino = require("../events/MessageEvent");
 const Discord = require('discord.js');
 
+/*  Function MessageHandler()
+|   Used to process messages and route these messages to the modules
+|   Params: msg: the message discord.js received
+|   Returns: /
+|   TODO:Add a separate MessageBuilder and remove the embed message from the code
+|   TODO:Add more modules
+ */
+
 function MessageHandler(msg){
     let content = msg.content.split(" ");
     if (content[0].startsWith("#")){
         if (content[1] >= 5){
+            //Register commands and route messages forward
             switch (content[0]){
                 case "#blackjack":
                 case "#bj":
@@ -33,4 +42,5 @@ function MessageHandler(msg){
     }
 }
 
+//Export the function as a module
 exports.MessageHandler = MessageHandler;
