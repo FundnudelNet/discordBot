@@ -31,7 +31,7 @@ class Casino {
                     count += parseInt(recentValues[i]);
                 }
 
-                if (count + card > 21){
+                if (count > 21){
                     if (recentValues.includes("11")){
                         recentValues[recentValues.indexOf("11")] = "1";
                         count = 0;
@@ -58,9 +58,8 @@ class Casino {
                     } else {
                         payOut *= 3;
                     }
-                    return this.winHandler("bj", payOut);
                 }
-
+                return this.winHandler("bj", payOut);
             } else {
                 return this.looseHandler();
             }
