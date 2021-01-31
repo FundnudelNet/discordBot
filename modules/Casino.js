@@ -3,6 +3,7 @@
 |   TODO:Add more games to the casino
  */
 const Discord = require("discord.js");
+
 class Casino {
     //Construct the object
     //Params: bet: The bet the user made
@@ -59,12 +60,12 @@ class Casino {
                     }
                     return this.winHandler("bj", payOut);
                 }
-                return this.winHandler("bj", payOut);
+
             } else {
-                return 0;
+                return this.looseHandler();
             }
         } else {
-            return 0;
+            return this.looseHandler()
         }
     }
 
@@ -74,27 +75,18 @@ class Casino {
         Returns: The prize
         TODO: Add mongoDB support
      */
-    winHandler(mode, payOut){
-        switch (mode){
-            case "bj":
-                return payOut;
-        }
+    winHandler(mode, casino){
+        return new Discord.MessageEmbed()
+            .setTitle("Gamble Bot")
+            .setDescription("You've won " + casino + "$.")
+            .setColor(0xff0000);
     }
 
-    messages(casino) {
-        if (casino > 0) {
-            let embed = new Discord.MessageEmbed()
-                .setTitle("Gamble Bot")
-                .setDescription("You've won " + casino + "$.")
-                .setColor(0xff0000);
-            msg.channel.send(embed);
-        } else {
-            let embed = new Discord.MessageEmbed()
-                .setTitle("Gamble Bot")
-                .setDescription("You've lost and our Casino says: thank you")
-                .setColor(0xff0000);
-        msg.channel.send(embed);
-        }
+    looseHandler(){
+        return new Discord.MessageEmbed()
+            .setTitle("Gamble Bot")
+            .setDescription("You've lost and our Casino says: thank you")
+            .setColor(0xff0000);
     }
 }
 

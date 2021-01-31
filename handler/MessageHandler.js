@@ -5,13 +5,13 @@ const Discord = require('discord.js');
 |   Used to process messages and route these messages to the modules
 |   Params: msg: the message discord.js received
 |   Returns: /
-|   TODO:Add a separate MessageBuilder and remove the embed message from the code
 |   TODO:Add more modules
  */
 
 class MessageHandler {
     constructor(msg) {
         this.msg = msg;
+        this.embed;
     }
 
     init() {
@@ -22,21 +22,10 @@ class MessageHandler {
                 switch (content[0]) {
                     case process.env.DC_Prefix + "blackjack":
                     case process.env.DC_Prefix + "bj":
-                        let casino = new Casino(content[1]).blackjack();
-                        if (casino >= content[1]) {
-                            let embed = new Discord.MessageEmbed()
-                                .setTitle("Gamble Bot")
-                                .setDescription("You've won " + casino + "$.")
-                                .setColor(0xff0000);
-                            this.msg.channel.send(embed);
-                        } else {
-                            let embed = new Discord.MessageEmbed()
-                                .setTitle("Gamble Bot")
-                                .setDescription("You've lost and our Casino says: thank you")
-                                .setColor(0xff0000);
-                            this.msg.channel.send(embed);
-                        }
+                        this.embed = new Casino(content[1]).blackjack();
+
                 }
+                this.msg.channel.send(this.embed);
             } else {
                 let embed = new Discord.MessageEmbed()
                     .setTitle("Gamble Bot")
