@@ -1,4 +1,4 @@
-const Casino = require("../events/MessageEvent");
+const Casino = require("../modules/Casino");
 const Discord = require('discord.js');
 
 /*  Function MessageHandler()
