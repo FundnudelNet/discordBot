@@ -11,12 +11,12 @@ const Discord = require('discord.js');
 
 function MessageHandler(msg){
     let content = msg.content.split(" ");
-    if (content[0].startsWith("#")){
+    if (content[0].startsWith(process.env.DC_Prefix)){
         if (content[1] >= 5){
             //Register commands and route messages forward
             switch (content[0]){
-                case "#blackjack":
-                case "#bj":
+                case process.env.DC_Prefix + "blackjack":
+                case process.env.DC_Prefix + "bj":
                     let casino = new Casino(content[1]).blackjack();
                     if (casino >= content[1]){
                     let embed = new Discord.MessageEmbed()
