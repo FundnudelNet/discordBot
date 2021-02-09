@@ -3,11 +3,13 @@
 |   TODO:Add more games to the casino
  */
 const Discord = require("discord.js");
+const Module = require("../../core/Module");
 
-class Casino {
+class Casino extends Module {
     //Construct the object
     //Params: bet: The bet the user made
     constructor(bet) {
+        super();
         this.bet = bet;
         this.userCount = 0;
         this.aiCount = 0;
