@@ -1,6 +1,12 @@
-const Bot = require('./bot');
+let Bot;
+function initBot() {
+     Bot = require('./bot');
+}
 
 class Module {
+    init(){
+        initBot();
+    }
     addCommand(Object = Object, cmd = Array()){
         try {
             for (let i = 0; i < cmd.length; i++){
