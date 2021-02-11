@@ -1,6 +1,7 @@
 {
   "author": "Fundnudel",
-  "name": "Casino",
+  "moduleName": "Casino",
 
-  "entry": "Casino.js"
+  "entry": "Casino.js",
+  "commands": ["bj", "blackjack"]
 }
