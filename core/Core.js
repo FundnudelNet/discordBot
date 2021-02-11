@@ -5,6 +5,7 @@ class Core {
     constructor() {
         this.modulePath = './modules/';
         this.activeModules = [];
+        this.activeCommands = [];
     }
     init() {
         this.dirs = fs.readdirSync(this.modulePath).map(dir => {
@@ -16,7 +17,6 @@ class Core {
                 this.verifyConfig(this.readConfig(this.dirs[i] + "/config.json"), this.dirs[i]);
             }
         }
-        return this.activeModules;
     }
 
     readConfig(configPath) {
@@ -35,23 +35,38 @@ class Core {
     }
 
     verifyConfig(data, dirPath) {
-        if (data.entry !== "" && data.moduleName !== ""){
-            if (fs.existsSync(dirPath + "\\"+ data.entry.toString())) {
-                try {
-                    let stressModule = require("../" + dirPath + "/"+ data.entry.toString());
-                    let stressClass = new stressModule();
-                    stressClass.init();
+        try {
+            if (data.entry !== "" && data.moduleName !== "") {
+                if (fs.existsSync(dirPath + "\\" + data.entry.toString())) {
 
+                    console.log("../" + dirPath + "/" + data.entry.toString())
+                    let stressModule = require("../" + dirPath + "/" + data.entry.toString());
+                    let stressClass = new stressModule();
+
+                    if (!data.commands) {
+                        delete data.commands;
+                    } else {
+                        let commands = [data.moduleName, data.commands];
+                        this.activeCommands.push(commands);
+                    }
                     this.activeModules.push(data);
-                } catch (e){
-                    console.log(e);
                 }
             }
+        } catch (e){
+            console.log(e);
         }
     }
 
     isDir = fileName =>{
         return fs.lstatSync(fileName).isDirectory();
+    }
+
+    get Modules(){
+        return this.activeModules;
+    }
+
+    get Commands(){
+        return this.activeCommands;
     }
 }
 

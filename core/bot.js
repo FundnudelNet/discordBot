@@ -3,17 +3,13 @@ const Core = require('./Core');
 class Bot extends Core {
     constructor() {
         super();
-        this.modules = [];
-        this.commands = [];
+        super.init();
         return this;
     }
 
     init(){
-        this.modules = super.init();
-        console.log(this.modules);
-    }
-    createCmd(cmd){
-        return;
+        this.modules = super.Modules;
+        this.commands = super.Commands;
     }
 }
 
