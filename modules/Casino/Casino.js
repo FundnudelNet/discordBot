@@ -13,16 +13,18 @@ class Casino extends Module {
         this.msg = msg;
         this.cmd = cmd;
         this.bet = this.msg.content.split(" ")[1];
-        
-        this.userCount = 0;
-        this.aiCount = 0;
-        
-        switch (this.cmd){
-            case "bj":
-            case "blackjack":
-                this.message = this.blackjack()
+        if(!this.bet < 5){
+            this.message = this.errorMessage();
+        } else {
+            this.userCount = 0;
+            this.aiCount = 0;
+
+            switch (this.cmd) {
+                case "bj":
+                case "blackjack":
+                    this.message = this.blackjack()
+            }
         }
-        
         this.msg.channel.send(this.message);
     }
     //Blackjack command/game.
@@ -98,6 +100,12 @@ class Casino extends Module {
         return new Discord.MessageEmbed()
             .setTitle("Gamble Bot")
             .setDescription("You've lost and our Casino says: thank you")
+            .setColor(0xff0000);
+    }
+    errorMessage() {
+        return new Discord.MessageEmbed()
+            .setTitle("Gamble Bot")
+            .setDescription("Please check your bet.")
             .setColor(0xff0000);
     }
 }
