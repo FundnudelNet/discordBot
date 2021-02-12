@@ -1,5 +1,5 @@
-const Casino = require("../modules/Casino/Casino");
 const Discord = require('discord.js');
+const Bot = require("../core/bot");
 
 /*  Function MessageHandler()
 |   Used to process messages and route these messages to the modules
@@ -11,25 +11,25 @@ const Discord = require('discord.js');
 class MessageHandler {
     constructor(msg) {
         this.msg = msg;
-        this.embed;
     }
 
     init() {
         let content = this.msg.content.split(" ");
         if (content[0].startsWith(process.env.DC_Prefix)) {
-            if (content[1] >= 5) {
-                //Register commands and route messages forward
-                switch (content[0]) {
-                    case process.env.DC_Prefix + "blackjack":
-                    case process.env.DC_Prefix + "bj":
-                        this.embed = new Casino(content[1]).blackjack();
-
+            let cmd = content[0].split(process.env.DC_Prefix);
+            cmd = cmd[1];
+            let module = Bot.checkCmd(cmd);
+            if(module !== null){
+                try {
+                    module = require("../modules/" + module);
+                    new module().init(this.msg);
+                } catch (e){
+                    console.log(e);
                 }
-                this.msg.channel.send(this.embed);
             } else {
                 let embed = new Discord.MessageEmbed()
                     .setTitle("Gamble Bot")
-                    .setDescription("This command is missing some arguments. Consider checking these arguments and try again.")
+                    .setDescription("This command was not found. Please check your input")
                     .setColor(0xff0000);
                 this.msg.channel.send(embed);
             }

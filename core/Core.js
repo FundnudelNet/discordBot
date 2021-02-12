@@ -5,6 +5,7 @@ class Core {
     constructor() {
         this.modulePath = './modules/';
         this.activeModules = [];
+        this.activePaths = [];
         this.activeCommands = [];
     }
     init() {
@@ -50,6 +51,7 @@ class Core {
                         this.activeCommands.push(commands);
                     }
                     this.activeModules.push(data);
+                    this.activePaths.push(dirPath);
                 }
             }
         } catch (e){
