@@ -8,11 +8,22 @@ const Module = require("../../core/Module");
 class Casino extends Module {
     //Construct the object
     //Params: bet: The bet the user made
-    constructor(bet) {
-        super();
-        this.bet = bet;
+    init(msg, cmd) {
+        super.init();
+        this.msg = msg;
+        this.cmd = cmd;
+        this.bet = this.msg.content.split(" ")[1];
+        
         this.userCount = 0;
         this.aiCount = 0;
+        
+        switch (this.cmd){
+            case "bj":
+            case "blackjack":
+                this.message = this.blackjack()
+        }
+        
+        this.msg.channel.send(this.message);
     }
     //Blackjack command/game.
     //Returns: the prize

@@ -22,7 +22,7 @@ class MessageHandler {
             if(module !== null){
                 try {
                     module = require("../modules/" + module);
-                    new module().init(this.msg);
+                    new module().init(this.msg, cmd);
                 } catch (e){
                     console.log(e);
                 }
